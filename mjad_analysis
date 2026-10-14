@@ -1,0 +1,142 @@
+import requests
+
+actual_url = "http://54.144.109.20:8000/mjad_analysis"
+
+data_json = [
+    {
+        "WQ Journal ID": "WQ001",
+        "Line Item ID": "L001",
+        "Company Code": "C001",
+        "Journal ID": "J1001",
+        "Posting Date": "09/01/2025",
+        "Created By": "user_a",
+        "Journal Name": "Sales Revenue",
+        "Amount Credited": 5000,
+        "Amount Debited": 0,
+        "Currency Code": "USD",
+        "GL Code": None,
+        "Profit Center": "PC01",
+        "Cost Center": "CC01",
+        "Fiscal Period": "2025-09",
+        "Document Date": "09/01/2025",
+        "Document ID": "D10001",
+        "Country Code": "US",
+        "Account Name": "Revenue",
+        "Conversion Rate": 1.0,
+    },
+    {
+        "WQ Journal ID": "WQ002",
+        "Line Item ID": "L002",
+        "Company Code": "C001",
+        "Journal ID": "J1002",
+        "Posting Date": "09/02/2025",
+        "Created By": "user_b",
+        "Journal Name": "Purchase",
+        "Amount Credited": 0,
+        "Amount Debited": 3000,
+        "Currency Code": "EUR",
+        "GL Code": "500200",
+        "Profit Center": "PC02",
+        "Cost Center": "CC02",
+        "Fiscal Period": "2025-09",
+        "Document Date": "09/02/2025",
+        "Document ID": "D10002",
+        "Country Code": "DE",
+        "Account Name": "Expenses",
+        "Conversion Rate": 1.1,
+    },
+    # ...and so on for other records
+] 
+"""
+
+data_json = [
+    {
+        "WQ Journal ID": "WQ001",
+        "Line Item ID": "L001",
+        "Company Code": "C001",
+        "Journal ID": "J1001",
+        "Posting Date": "2025-09-01",
+        "Created By": "user_a",
+        "Journal Name": "Sales Revenue",
+        "Amount Credited": 5000,
+        "Amount Debited": 0,
+        "Currency Code": "USD",
+        "GL Code": "400100",
+        "Profit Center": "PC01",
+        "Cost Center": "CC01",
+        "Fiscal Period": "2025-09",
+        "Document Date": "2025-09-01",
+        "Document ID": "D10001",
+        "Country Code": "US",
+        "Account Name": "Revenue",
+        "Conversion Rate": 1.0,
+    },
+    {
+        "WQ Journal ID": "WQ002",
+        "Line Item ID": "L002",
+        "Company Code": "C001",
+        "Journal ID": "J1002",
+        "Posting Date": "2025-09-02",
+        "Created By": "user_b",
+        "Journal Name": "Purchase",
+        "Amount Credited": 0,
+        "Amount Debited": 3000,
+        "Currency Code": "EUR",
+        "GL Code": "500200",
+        "Profit Center": "PC02",
+        "Cost Center": "CC02",
+        "Fiscal Period": "2025-09",
+        "Document Date": "2025-09-02",
+        "Document ID": "D10002",
+        "Country Code": "DE",
+        "Account Name": "Expenses",
+        "Conversion Rate": 1.1,
+    },
+    # (Add WQ Journal ID and Line Item ID for all other records)
+]"""
+
+payload1 ={
+    "Data": [
+        {
+            "Line Item ID": 101,
+            "Company Code": "EG03",
+            "WQ Journal ID": 136,
+            "Posting Date": "11/11/2025",
+            "Created By": "Dummy",
+            "Journal Name": "Reclass 8",
+            "Amount Credited": -8500,
+            "Amount Debited": 0,
+            "Currency Code": "INR",
+            "GL Code": 1112985,
+            "Profit Center": 2212,
+            "Cost Center": 22800101,
+            "Fiscal Period": 2025
+        },
+        {
+            "Line Item ID": 2,
+            "Company Code": "jkh",
+            "WQ Journal ID": 136,
+            "Posting Date": "11/11/2025",
+            "Created By": "Dummy",
+            "Journal Name": "Reclass 9",
+            "Amount Credited": 0,
+            "Amount Debited": 8500,
+            "Currency Code": "INR",
+            "GL Code": 1112986,
+            "Profit Center": 2212,
+            "Cost Center": 22800551,
+            "Fiscal Period": 2025
+        }
+    ],
+    "AccountName": "postgres",
+    "DataType": "Current"
+}
+payload = {
+    "Data": data_json,
+    "AccountName": "Genpact",
+    "DataType": "Historical/Current",
+}
+
+response = requests.post(actual_url, json=payload1)
+print(response.status_code)
+print(response.json())
